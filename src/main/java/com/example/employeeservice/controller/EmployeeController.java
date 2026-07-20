@@ -14,9 +14,9 @@ public class EmployeeController {
     @GetMapping("/employees")
     public List<Employee> getEmployees() {
         return List.of(
-                new Employee(1L, "Ajinkya", "DevOps"),
-                new Employee(2L, "Rahul", "Development"),
-                new Employee(3L, "Priya", "Testing")
+                new Employee(1L, "Ajinkya version 2", "DevOps"),
+                new Employee(2L, "Rahul version 2", "Development"),
+                new Employee(3L, "Priya version 2", "Testing")
         );
     }
 }
