@@ -17,12 +17,12 @@ pipeline {
         }
 
         stage('Build Spring Boot') {
-
             steps {
-
-                sh 'chmod +x gradlew'
-
-                sh './gradlew clean build'
+                sh '''
+                    chmod +x gradlew
+                    export GRADLE_OPTS="-Xms128m -Xmx256m"
+                    ./gradlew clean build -x test --no-daemon
+                '''
             }
         }
 
