@@ -16,5 +16,15 @@ pipeline {
             }
         }
 
+        stage('Build Spring Boot') {
+
+            steps {
+
+                sh 'chmod +x gradlew'
+
+                sh './gradlew clean build'
+            }
+        }
+
     }
 }
