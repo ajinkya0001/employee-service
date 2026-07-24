@@ -62,6 +62,19 @@ pipeline {
                 '''
             }
         }
+        stage('Push Docker Image') {
+            environment {
+                AWS_REGION = 'ap-south-1'
+                AWS_ACCOUNT_ID = '188217590021'
+                ECR_REPOSITORY = 'employee-service'
+            }
+
+            steps {
+                sh '''
+                    docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPOSITORY}:${BUILD_NUMBER}
+                '''
+            }
+        }
 
     }
 }
