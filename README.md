@@ -241,49 +241,51 @@ Then display them like this:
 
 ## Jenkins Pipeline
 
-![Jenkins Pipeline](screenshots/jenkins-pipeline.png)
+<img width="1919" height="1105" alt="image" src="https://github.com/user-attachments/assets/c9c1f063-a2ed-4ad4-936d-92d8cdf824b8" />
+
 
 ---
 
 ## GitHub Webhook
 
-![GitHub Webhook](screenshots/github-webhook.png)
+<img width="1919" height="1199" alt="image" src="https://github.com/user-attachments/assets/64874bd2-4534-4e66-8f27-16b1ad15a799" />
+
 
 ---
 
 ## Amazon ECR
 
-![Amazon ECR](screenshots/ecr-images.png)
+<img width="1919" height="1100" alt="image" src="https://github.com/user-attachments/assets/397e6547-5309-407e-92f7-40c1c1469dd8" />
+
+
 
 ---
 
 ## ECS Service
 
-![ECS Service](screenshots/ecs-service.png)
+<img width="1919" height="1199" alt="image" src="https://github.com/user-attachments/assets/0785db09-b024-4f57-b498-fa83e9711f4d" />
+
 
 ---
 
 ## ECS Task Definition
 
-![Task Definition](screenshots/task-definition.png)
+<img width="1919" height="1108" alt="image" src="https://github.com/user-attachments/assets/fac5d46e-1906-405d-aeca-19ecd95444b1" />
 
----
-
-## Rolling Deployment
-
-![Rolling Deployment](screenshots/rolling-deployment.png)
 
 ---
 
 ## CloudWatch Logs
 
-![CloudWatch](screenshots/cloudwatch.png)
+<img width="1919" height="1104" alt="image" src="https://github.com/user-attachments/assets/1d15b42e-df1e-420d-99e8-d9f7adb23f39" />
+
 
 ---
 
 ## API Response
 
-![API](screenshots/api-response.png)
+<img width="1919" height="606" alt="image" src="https://github.com/user-attachments/assets/d1291264-a050-4484-8635-1ff16bae7eca" />
+
 
 ---
 
