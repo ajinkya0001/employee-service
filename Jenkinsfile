@@ -116,6 +116,34 @@ pipeline {
                 '''
             }
         }
+        stage('Update ECS Service') {
+            environment {
+                AWS_REGION = 'ap-south-1'
+                ECS_CLUSTER = 'employee-cluster'
+                ECS_SERVICE = 'employee-service-task-service-qskaepe9'
+                TASK_DEFINITION = 'employee-service-task'
+            }
+
+            steps {
+                sh '''
+                    echo "Updating ECS Service..."
+
+                    LATEST_REVISION=$(aws ecs describe-task-definition \
+                        --task-definition $TASK_DEFINITION \
+                        --region $AWS_REGION \
+                        --query 'taskDefinition.revision' \
+                        --output text)
+
+                    echo "Latest Revision: $LATEST_REVISION"
+
+                    aws ecs update-service \
+                        --cluster $ECS_CLUSTER \
+                        --service $ECS_SERVICE \
+                        --task-definition ${TASK_DEFINITION}:$LATEST_REVISION \
+                        --region $AWS_REGION
+                '''
+            }
+        }
 
     }
 }
