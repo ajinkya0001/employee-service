@@ -144,6 +144,33 @@ pipeline {
                 '''
             }
         }
+        stage('Wait for ECS Stability') {
+            environment {
+                AWS_REGION = 'ap-south-1'
+                ECS_CLUSTER = 'employee-cluster'
+                ECS_SERVICE = 'employee-service-task-service-qskaepe9'
+            }
+
+            steps {
+                sh '''
+                    echo "Waiting for ECS deployment to complete..."
+
+                    aws ecs wait services-stable \
+                        --cluster $ECS_CLUSTER \
+                        --services $ECS_SERVICE \
+                        --region $AWS_REGION
+
+                    echo "Deployment completed successfully."
+                '''
+            }
+        }
+        stage('Cleanup') {
+            steps {
+                sh '''
+                    docker image prune -af
+                '''
+            }
+        }
 
     }
 }
