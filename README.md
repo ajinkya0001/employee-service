@@ -1,36 +1,50 @@
-# 🚀 Employee Service - AWS ECS Fargate Deployment
+# 🚀 Employee Service - AWS ECS Fargate + Jenkins CI/CD
 
-> Enterprise-style deployment of a Spring Boot REST API using Docker, Amazon ECR, AWS ECS (Fargate), Application Load Balancer, and CloudWatch with **Zero Downtime Rolling Deployment**.
+Enterprise-style deployment of a Spring Boot REST API using **Docker, Amazon ECR, AWS ECS (Fargate), Jenkins Pipeline, GitHub Webhooks, Application Load Balancer, and CloudWatch** with **Zero Downtime Rolling Deployment**.
 
-![Java](https://img.shields.io/badge/Java-21-orange?style=for-the-badge&logo=openjdk)
-![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.x-green?style=for-the-badge&logo=springboot)
-![Docker](https://img.shields.io/badge/Docker-Container-blue?style=for-the-badge&logo=docker)
-![AWS ECS](https://img.shields.io/badge/AWS-ECS-orange?style=for-the-badge&logo=amazonaws)
-![Fargate](https://img.shields.io/badge/AWS-Fargate-orange?style=for-the-badge)
-![CloudWatch](https://img.shields.io/badge/AWS-CloudWatch-yellow?style=for-the-badge)
-![Gradle](https://img.shields.io/badge/Gradle-Build-darkgreen?style=for-the-badge&logo=gradle)
+![Java](https://img.shields.io/badge/Java-21-orange)
+![Spring Boot](https://img.shields.io/badge/SpringBoot-3.x-brightgreen)
+![Docker](https://img.shields.io/badge/Docker-Latest-blue)
+![Jenkins](https://img.shields.io/badge/Jenkins-CI-red)
+![AWS ECS](https://img.shields.io/badge/AWS-ECS-orange)
+![Fargate](https://img.shields.io/badge/Fargate-Enabled-blue)
 
 ---
 
 # 📖 Project Overview
 
-This project demonstrates how to deploy a **Spring Boot Employee Management REST API** on **AWS ECS Fargate** using a production-style deployment pipeline.
+This project demonstrates a complete **CI/CD pipeline** for deploying a Spring Boot REST API to **AWS ECS Fargate**.
 
-The application is containerized using Docker, stored in Amazon ECR, deployed using ECS Fargate, exposed through an Application Load Balancer, monitored with CloudWatch, and upgraded using **Rolling Deployment** to achieve **Zero Downtime**.
+The application is:
+
+- Developed using Spring Boot
+- Containerized using Docker
+- Built automatically using Jenkins
+- Stored in Amazon ECR
+- Automatically deployed to ECS Fargate
+- Triggered using GitHub Webhooks
+- Exposed through an Application Load Balancer
+- Monitored using CloudWatch
+- Updated using Zero Downtime Rolling Deployment
 
 ---
 
 # ✨ Features
 
-- ✅ Employee CRUD REST APIs
-- 🐳 Dockerized Spring Boot Application
-- ☁ Amazon Elastic Container Registry (ECR)
-- 🚀 AWS ECS Fargate Deployment
-- ⚖ Application Load Balancer (ALB)
-- 🎯 Target Group Health Checks
-- 📋 ECS Task Definition & Service
-- 📈 Amazon CloudWatch Logging
-- 🔄 Rolling Deployment
+- ✅ Spring Boot REST API
+- ✅ Dockerized Application
+- ✅ Amazon Elastic Container Registry (ECR)
+- ✅ AWS ECS Fargate Deployment
+- ✅ Application Load Balancer
+- ✅ CloudWatch Logs
+- ✅ Jenkins CI/CD Pipeline
+- ✅ GitHub Webhooks
+- ✅ Automatic Build on Git Push
+- ✅ Automatic Docker Build
+- ✅ Automatic Docker Push to ECR
+- ✅ Automatic ECS Task Definition Revision
+- ✅ Automatic ECS Service Update
+- ✅ Rolling Deployment
 - ✅ Zero Downtime Deployment
 
 ---
@@ -43,11 +57,12 @@ The application is containerized using Docker, stored in Amazon ECR, deployed us
 | Spring Boot | 3.x |
 | Gradle | Latest |
 | Docker | Latest |
-| AWS ECS | Fargate |
+| Jenkins | Latest |
+| GitHub | Webhooks |
+| Amazon ECS | Fargate |
 | Amazon ECR | Private Repository |
-| Application Load Balancer | AWS |
 | CloudWatch | Monitoring |
-| Git | Version Control |
+| Application Load Balancer | AWS |
 
 ---
 
@@ -65,13 +80,25 @@ The application is containerized using Docker, stored in Amazon ECR, deployed us
 
 ---
 
-# 🏗 AWS Architecture
+# 🏗 CI/CD Architecture
 
-```
+```text
 Developer
      │
      ▼
-Spring Boot Application
+Git Push
+     │
+     ▼
+GitHub Repository
+     │
+     ▼
+GitHub Webhook
+     │
+     ▼
+Jenkins Pipeline
+     │
+     ▼
+Gradle Build
      │
      ▼
 Docker Build
@@ -80,104 +107,103 @@ Docker Build
 Amazon ECR
      │
      ▼
-Task Definition
+Register New ECS Task Definition
      │
      ▼
-ECS Service
+Update ECS Service
      │
      ▼
-ECS Tasks (Fargate)
+Launch New ECS Task
      │
      ▼
-Target Group
+ALB Health Check
      │
      ▼
-Application Load Balancer
+Old Task Stops
      │
      ▼
-Users
+Zero Downtime Deployment
 ```
+
+---
+
+# 🔄 Jenkins Pipeline
+
+The Jenkins Pipeline consists of the following stages:
+
+- ✅ Checkout Source
+- ✅ Build Spring Boot
+- ✅ Build Docker Image
+- ✅ Login to Amazon ECR
+- ✅ Tag Docker Image
+- ✅ Push Docker Image
+- ✅ Register Task Definition
+- ✅ Update ECS Service
+- ✅ Wait for ECS Stability
+- ✅ Cleanup
 
 ---
 
 # 🔄 Rolling Deployment Workflow
 
-```
-Modify Code
-
-      │
-
-      ▼
-
-Gradle Build
-
-      │
-
-      ▼
-
-Docker Build (v2)
-
-      │
-
-      ▼
-
-Push Image to Amazon ECR
-
-      │
-
-      ▼
-
-Create Task Definition Revision
-
-      │
-
-      ▼
-
-Update ECS Service
-
-      │
-
-      ▼
-
-Launch New ECS Task
-
-      │
-
-      ▼
-
-Target Group Health Check
-
-      │
-
-      ▼
-
+```text
+Developer Changes Code
+          │
+          ▼
+      Git Commit
+          │
+          ▼
+       Git Push
+          │
+          ▼
+ GitHub Webhook Trigger
+          │
+          ▼
+   Jenkins Pipeline Starts
+          │
+          ▼
+     Build Spring Boot
+          │
+          ▼
+      Docker Build
+          │
+          ▼
+     Push Image to ECR
+          │
+          ▼
+ Register Task Definition
+          │
+          ▼
+    Update ECS Service
+          │
+          ▼
+ Launch New ECS Task
+          │
+          ▼
+ Target Group Health Check
+          │
+          ▼
 ALB Routes Traffic to New Task
-
-      │
-
-      ▼
-
-Old Task Stops
-
-      │
-
-      ▼
-
-Zero Downtime Deployment
+          │
+          ▼
+   Old Task Stops
+          │
+          ▼
+ Zero Downtime Deployment
 ```
 
 ---
 
 # 📂 Project Structure
 
-```
+```text
 employee-service
 │
 ├── src/
-├── build.gradle
+├── Jenkinsfile
 ├── Dockerfile
+├── build.gradle
 ├── gradlew
-├── gradlew.bat
 ├── settings.gradle
 └── README.md
 ```
@@ -186,45 +212,130 @@ employee-service
 
 # 🌐 Live API
 
-### Get Employees
-
-```http
+```
 GET http://employee-alb-2004854171.ap-south-1.elb.amazonaws.com/api/employees
 ```
 
-> **Note:** This endpoint is hosted on an AWS ECS service behind an Application Load Balancer. It is available while the AWS infrastructure is running.
+> **Note:** The endpoint is available only while the AWS ECS infrastructure is running.
+
+---
+
+# 📸 Project Screenshots
+
+Create a folder named **screenshots** and place your screenshots there.
+
+```text
+screenshots/
+│
+├── jenkins-pipeline.png
+├── github-webhook.png
+├── ecr-images.png
+├── ecs-service.png
+├── task-definition.png
+├── rolling-deployment.png
+├── cloudwatch.png
+└── api-response.png
+```
+
+Then display them like this:
+
+## Jenkins Pipeline
+
+![Jenkins Pipeline](screenshots/jenkins-pipeline.png)
+
+---
+
+## GitHub Webhook
+
+![GitHub Webhook](screenshots/github-webhook.png)
+
+---
+
+## Amazon ECR
+
+![Amazon ECR](screenshots/ecr-images.png)
+
+---
+
+## ECS Service
+
+![ECS Service](screenshots/ecs-service.png)
+
+---
+
+## ECS Task Definition
+
+![Task Definition](screenshots/task-definition.png)
+
+---
+
+## Rolling Deployment
+
+![Rolling Deployment](screenshots/rolling-deployment.png)
+
+---
+
+## CloudWatch Logs
+
+![CloudWatch](screenshots/cloudwatch.png)
+
+---
+
+## API Response
+
+![API](screenshots/api-response.png)
 
 ---
 
 # 📊 Deployment Highlights
 
-- Docker Image Build
-- Amazon ECR Push
-- ECS Task Definition
-- ECS Service
-- AWS Fargate
-- Application Load Balancer
-- Target Group Health Checks
-- CloudWatch Monitoring
-- Rolling Deployment
-- Zero Downtime Release
+- ✅ GitHub Webhook Trigger
+- ✅ Automatic Jenkins Build
+- ✅ Spring Boot Build
+- ✅ Docker Image Build
+- ✅ Amazon ECR Push
+- ✅ ECS Task Definition Revision
+- ✅ ECS Service Update
+- ✅ AWS Fargate Deployment
+- ✅ Application Load Balancer
+- ✅ Target Group Health Checks
+- ✅ CloudWatch Monitoring
+- ✅ Rolling Deployment
+- ✅ Zero Downtime Release
 
 ---
 
 # 📚 What I Learned
 
-- Containerizing Spring Boot applications
-- Working with Docker images
-- Amazon ECR image management
-- ECS Task Definitions
-- ECS Services
-- AWS Fargate deployment
-- ALB & Target Groups
-- CloudWatch logging
-- Health Checks
-- Rolling Deployments
-- Zero Downtime deployments
-- Enterprise deployment workflow
+- Spring Boot REST API Development
+- Docker Containerization
+- Amazon Elastic Container Registry (ECR)
+- AWS ECS Fargate
+- Application Load Balancer
+- CloudWatch Logging
+- Jenkins Declarative Pipeline
+- GitHub Webhook Integration
+- Continuous Integration (CI)
+- Continuous Deployment (CD)
+- ECS Task Definition Revisions
+- Rolling Deployment Strategy
+- Zero Downtime Deployments
+- Enterprise CI/CD Workflow
+
+---
+
+# 🚀 Future Improvements
+
+- Infrastructure as Code using Terraform
+- Multi-Environment Deployments (Dev, QA, Prod)
+- Blue-Green Deployment
+- Canary Deployment
+- SonarQube Integration
+- Trivy Image Scanning
+- Slack Notifications
+- HTTPS using ACM
+- Route 53 Custom Domain
+- Kubernetes (Amazon EKS)
 
 ---
 
@@ -233,22 +344,12 @@ GET http://employee-alb-2004854171.ap-south-1.elb.amazonaws.com/api/employees
 **Ajinkya Jadkar**
 
 - Java Developer
-- Spring Boot
+- Spring Boot Developer
 - Docker
+- Jenkins
 - AWS Cloud
 - DevOps Enthusiast
 
 ---
 
-# ⭐ Future Improvements
-
-- CI/CD using GitHub Actions
-- Terraform Infrastructure as Code
-- Auto Scaling
-- HTTPS with ACM
-- Custom Domain (Route 53)
-- AWS CodePipeline Integration
-
----
-
-## 🙌 If you found this project useful, consider giving it a ⭐ on GitHub.
+⭐ If you found this project useful, consider giving it a **Star** on GitHub!
